@@ -1,18 +1,14 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Board } from "./Board";
 import { handleStatus } from "./Validation";
 import "./Board.css"
 import "./Wordle.css"
 
-/*const resetGame = () => {
-  setTargetWord(words[Math.floor(Math.random() * words.length)]);
-};*/
-
 export function WordleGame() {
   const rows = 6;
   const cols = 5;
 
-  const wordList = ["atrio", "fossa", "dotes", "parvo", "Vasco"];
+  const [wordList, setWordList] = useState([]);
   const [guesses, setGuesses] = useState(
     Array.from({ length: rows }, () => Array(cols).fill(""))
   );
@@ -35,15 +31,33 @@ export function WordleGame() {
     )
   );
 
-  const [targetWord, setTargetWord] = useState(
-    wordList[Math.floor(Math.random() * wordList.length)]
-  );
+  const [targetWord, setTargetWord] = useState("");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "https://api.datamuse.com/words?sp=?????&max=1000");
+        const data = await response.json();
+        const words = data.map((word) => word.word);
+        setWordList(words);
+        setTargetWord(words[Math.floor(Math.random() * words.length)].toUpperCase());
+      } catch (error) {
+        console.log(error);
+        setWordList(["APPLE", "GRAPE", "STONE", "PLANE", "TABLE"]);
+        setTargetWord(words[Math.floor(Math.random() * words.length)]);
+      }
+    };
+    fetchData();
+  }, []);
 
   const fetchNewTargetWord = () => {
+    if (wordList.length > 0) {
     const newWord = wordList[Math.floor(Math.random() * wordList.length)];
-    setTargetWord(newWord);
+    setTargetWord(newWord.toUpperCase());
+    };
   };
-
+  
   const resetGame = () => {
     setGuesses(Array.from({ length: rows }, () => Array(cols).fill("")));
     setStatus(Array.from({ length: rows }, () => Array(cols).fill("")));
@@ -115,6 +129,7 @@ export function WordleGame() {
           setGameOver(true);
           setPlayAgain(true);
           alert("You win!");
+          return;
         }
         if (currentRow < rows - 1) {
           setCurrentRow(currentRow + 1);
@@ -132,6 +147,7 @@ export function WordleGame() {
           setGameOver(true);
           setPlayAgain(true);
           alert("Game Over! The word was " + targetWord);
+          return;
         }
       }
     }
@@ -141,6 +157,7 @@ export function WordleGame() {
   return (
     <div>
       <h1 className="title">Wordle</h1>
+      <p>target word: {targetWord}</p>
       <Board
         guesses={guesses}
         gameOver={gameOver}
