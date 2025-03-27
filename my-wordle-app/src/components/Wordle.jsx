@@ -157,7 +157,6 @@ export function WordleGame() {
   return (
     <div>
       <h1 className="title">Wordle</h1>
-      <p>target word: {targetWord}</p>
       <Board
         guesses={guesses}
         gameOver={gameOver}
