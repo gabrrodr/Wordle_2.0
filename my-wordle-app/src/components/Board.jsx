@@ -14,7 +14,7 @@ import { Tile } from "./Tile";
 //each row is an array of letters
 // map is going to iterate over the guesses array and transform into a grid
 
-export function Board({ guesses, handleInputChange, handleKeyDown, currentRow, currentCol, status }) {
+export function Board({ guesses, handleInputChange, handleKeyDown, currentRow, currentCol, status, gameOver }) {
   return (
     <div className="grid">
       {guesses.map((row, rowIndex) => (
@@ -24,6 +24,7 @@ export function Board({ guesses, handleInputChange, handleKeyDown, currentRow, c
               key={`${rowIndex}-${colIndex}`}
               letter={letter}
               isActive={rowIndex === currentRow && colIndex === currentCol}
+              disabled={gameOver}
               onChange={handleInputChange}
               onKeyDown={handleKeyDown}
               className={`tile${status[rowIndex]?.[colIndex]}`}

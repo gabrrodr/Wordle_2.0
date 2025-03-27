@@ -28,7 +28,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #808000; /* Olive green for correct letter in right position */
+  background-color: #8b8b09; /* Olive green for correct letter in right position */
   color: white;
   border-radius: 5px;
 }
@@ -60,7 +60,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: grey; /* Purple for correct letter in wrong position */
+  background-color: rgb(155, 154, 154); /* Purple for correct letter in wrong position */
   color: white;
   border-radius: 5px;
 }

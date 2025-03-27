@@ -2,7 +2,7 @@ import React, {useEffect, useRef} from 'react';
 import './Tile.css';
 
 
-export function Tile({ letter, isActive, onChange, onKeyDown, className}) {
+export function Tile({ letter, isActive, onChange, onKeyDown, className, gameOver }) {
   const inputRef = useRef(null);
 
   useEffect(() => {
@@ -18,6 +18,7 @@ export function Tile({ letter, isActive, onChange, onKeyDown, className}) {
       value={letter}
       maxLength="1"
       className={`${className || ""}`}
+      disabled={gameOver}
       onChange={onChange}
       onKeyDown={onKeyDown}
       //readOnly={!isActive}
