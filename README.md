@@ -30,7 +30,7 @@ Make sure you have following installed on your system:
 
 2. **Navigate to the Project Directory**:
 
-    cd Wordle_2.0
+    cd Wordle_2.0/my-wordle-app
 
 3. **Install Dependencies**:
 
