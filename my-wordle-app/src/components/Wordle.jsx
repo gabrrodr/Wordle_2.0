@@ -139,14 +139,14 @@ export function WordleGame() {
             nextInput.focus();
           }
         }
-        if (
-          currentRow === rows - 1 &&
+        if ( currentRow === rows - 1 &&
           currentCol === cols - 1 &&
           updatedStatus[currentRow].every((s) => s !== "correct")
         ) {
           setGameOver(true);
           setPlayAgain(true);
           alert("Game Over! The word was " + targetWord);
+          setGameOver(false);
           return;
         }
       }
